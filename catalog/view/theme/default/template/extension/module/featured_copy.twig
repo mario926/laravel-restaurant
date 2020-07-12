@@ -1,0 +1,64 @@
+<div class="new_arrivals_agile_w3ls_info"> 
+	<div class="container">
+			<h3 class="wthree_text_info">{{ heading_title }}</span></h3>		
+			<div id="horizontalTab">
+					<ul class="resp-tabs-list">
+						<li> Men's</li>
+						<li> Women's</li>
+						<li> Bags</li>
+						<li> Footwear</li>
+					</ul>
+				<div class="resp-tabs-container">
+				<!--/tab_no.-->
+				<div class="tab1">
+				{% set myArray= [] %}
+				{% for product in products %}
+					{% set lilArray %}
+						<div class="col-md-3 product-men">
+							<div class="men-pro-item simpleCart_shelfItem">
+								<div class="men-thumb-item">
+									<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a>											
+								</div>
+								<div class="item-info-product ">
+									<h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+									<div class="info-product-price">
+										{% if product.rating %}
+										<div class="rating">
+											{% for i in 5 %}
+											{% if product.rating < i %}
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+											{% else %}
+											<span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+											{% endif %}
+											{% endfor %}
+										</div>
+										{% endif %}
+										{% if product.price %}
+										<p class="price">
+											{% if not product.special %}
+											{{ product.price }}
+											{% else %}
+											<span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+											{% endif %}
+										</p>
+										{% endif %}
+									</div>
+									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+										<button type="button" onclick="cart.add('{{ product.product_id }}');"> <span class="hidden-xs hidden-sm hidden-md">Add to basket</span></button>
+									</div>									
+								</div>
+							</div>
+						</div>
+						{% endset %}
+						{% set myArray=myArray|merge([lilArray]) %}
+				{% endfor %}
+						{% set newArray = myArray|json_encode() %}
+						{{ dump(newArray) }}
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>

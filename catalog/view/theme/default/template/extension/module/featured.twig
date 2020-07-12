@@ -1,0 +1,53 @@
+<section id="food">
+	<div class="new_arrivals_agile_w3ls_info"> 
+		<div class="container">
+				{% set catArray = [] %}
+				{% for product in products %}
+					{% if product.category not in catArray %}
+						{% set catArray = catArray|merge([product.category]) %}
+					{% endif %}
+				{% endfor %}
+				<h3 class="wthree_text_info">{{ heading_title }}</span></h3>		
+				<div id="horizontalTab">
+						<ul class="resp-tabs-list">
+							<li> {{catArray[0]}}</li>
+							<li> {{catArray[1]}}</li>
+							<li> {{catArray[2]}}</li>
+							<li> {{catArray[3]}}</li>
+						</ul>
+					<div class="resp-tabs-container">
+					<!--/tab_no.-->
+
+					{% set myArray = [] %}
+					{% for product in products %}
+						{% set counter = (counter | default(0)) + 1 %}
+						{% set rad = {"id": counter, "href": product.href, "thumb": product.thumb, "name": product.name,
+														"special": product.special, "price": product.price, "rating": product.rating, 
+														"category": product.category, "product_id": product.product_id}
+						%}
+						{% set myArray = myArray|merge([rad,]) %}
+					{% endfor %}
+
+					{#% set json = myArray|json_encode() %#}
+					{% set json = json_parser(myArray) %}
+					{{ write_file(json,"productList.json") }}
+					<div id="tab1" class="tab1">
+					
+					</div>
+					<div id="tab2" class="tab2">
+					
+					</div>
+					<div id="tab3" class="tab3">
+					
+					</div>
+					<div id="tab4" class="tab4">
+					
+					</div>
+					<script>
+
+					</script>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
